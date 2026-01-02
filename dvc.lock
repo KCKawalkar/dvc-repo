@@ -17,3 +17,20 @@ stages:
       hash: md5
       md5: ccdc9c7b7bde610109b5eb93f171d227
       size: 117
+  train:
+    cmd: python scripts/train.py
+    deps:
+    - path: data/processed.csv
+      hash: md5
+      md5: ccdc9c7b7bde610109b5eb93f171d227
+      size: 117
+    - path: scripts/train.py
+      hash: md5
+      md5: 64f488bbdb2b090457ba184b545154ea
+      size: 668
+    outs:
+    - path: models/model_v1
+      hash: md5
+      md5: f4dbb7dfb8f58d0db3c982e8bdb98252.dir
+      size: 332471746
+      nfiles: 8

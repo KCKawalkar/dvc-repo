@@ -6,3 +6,10 @@ stages:
     - scripts/preprocess.py
     outs:
     - data/processed.csv
+  train:
+    cmd: python scripts/train.py
+    deps:
+    - data/processed.csv
+    - scripts/train.py
+    outs:
+    - models/model_v1
