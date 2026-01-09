@@ -6,8 +6,8 @@ stages:
     deps:
     - path: data/raw/prompts.csv
       hash: md5
-      md5: ccdc9c7b7bde610109b5eb93f171d227
-      size: 117
+      md5: 098d607764812bb860264fe94acf64d3
+      size: 1598
     - path: scripts/preprocess.py
       hash: md5
       md5: e33db128cbce580150b3714b4fcaa4d3
@@ -19,16 +19,16 @@ stages:
     outs:
     - path: data/processed.csv
       hash: md5
-      md5: ccdc9c7b7bde610109b5eb93f171d227
-      size: 117
+      md5: 098d607764812bb860264fe94acf64d3
+      size: 1598
   train:
     cmd: python scripts/train.py --data data/processed.csv --model_dir 
       models/model_v1 --model_name distilgpt2 --epochs 3 --batch_size 8
     deps:
     - path: data/processed.csv
       hash: md5
-      md5: ccdc9c7b7bde610109b5eb93f171d227
-      size: 117
+      md5: 098d607764812bb860264fe94acf64d3
+      size: 1598
     - path: scripts/train.py
       hash: md5
       md5: e2a2d9a841e70d88a73b4b900ffd60f2
@@ -53,12 +53,12 @@ stages:
     deps:
     - path: data/processed.csv
       hash: md5
-      md5: ccdc9c7b7bde610109b5eb93f171d227
-      size: 117
+      md5: 098d607764812bb860264fe94acf64d3
+      size: 1598
     - path: data/raw/knowledge_base.csv
       hash: md5
-      md5: c7ee4c4fdf688c3cfd6aa8af9d86fcf8
-      size: 2924
+      md5: cd1453bd55b70d25e5fa3ad7251f17d2
+      size: 27181
     - path: models/model_v1
       hash: md5
       md5: f4dbb7dfb8f58d0db3c982e8bdb98252.dir
@@ -74,5 +74,5 @@ stages:
     outs:
     - path: data/predictions.csv
       hash: md5
-      md5: 99e23b990ff8ac84357aa956ccd00c6d
-      size: 1728
+      md5: e7587ac403ed5d770401f521cb3f3ab6
+      size: 25000
