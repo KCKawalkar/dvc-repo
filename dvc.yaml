@@ -1,15 +1,37 @@
 stages:
   preprocess:
-    cmd: python scripts/preprocess.py
+    cmd: python scripts/preprocess.py --input ${preprocess.input} --output ${preprocess.output}
     deps:
-    - data/raw
-    - scripts/preprocess.py
+      - data/raw/prompts.csv
+      - scripts/preprocess.py
+    params:
+      - preprocess.input
+      - preprocess.output
     outs:
-    - data/processed.csv
+      - data/processed.csv
+
   train:
-    cmd: python scripts/train.py
+    cmd: python scripts/train.py --data ${train.data} --model_dir ${train.model_dir} --model_name ${train.model_name} --epochs ${train.epochs} --batch_size ${train.batch_size}
     deps:
-    - data/processed.csv
-    - scripts/train.py
+      - data/processed.csv
+      - scripts/train.py
+    params:
+      - train.data
+      - train.model_dir
+      - train.model_name
+      - train.epochs
+      - train.batch_size
     outs:
-    - models/model_v1
+      - models/model_v1
+
+  generate:
+    cmd: python scripts/rag_generate.py --model_dir ${generate.model_dir} --data ${generate.input} --knowledge_base ${generate.knowledge_base} --output ${generate.output} --max_length ${generate.max_length}
+    deps:
+      - models/model_v1
+      - data/processed.csv
+      - data/raw/knowledge_base.csv
+      - scripts/rag_generate.py
+    params:
+      - generate.max_length
+    outs:
+      - data/predictions.csv

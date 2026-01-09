@@ -1,0 +1,17 @@
+preprocess:
+  input: data/raw/prompts.csv
+  output: data/processed.csv
+
+train:
+  data: data/processed.csv
+  model_dir: models/model_v1
+  model_name: distilgpt2
+  epochs: 3
+  batch_size: 8
+
+generate:
+  model_dir: models/model_v1
+  input: data/processed.csv
+  knowledge_base: data/raw/knowledge_base.csv
+  output: data/predictions.csv
+  max_length: 50

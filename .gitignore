@@ -1,0 +1,18 @@
+# DVC outputs & data
+/models/
+/data/processed.csv
+/data/predictions.csv
+
+# Raw Data tracked by DVC
+# (Assuming you will track the raw data directory with DVC)
+/data/raw/
+
+# Other large files
+/twolakhrows.csv
+
+# MLflow local tracking
+/mlruns/
+/mlflow.db
+
+# DVC internal directory
+/.DVC/
