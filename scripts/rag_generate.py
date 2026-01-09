@@ -52,7 +52,11 @@ def main():
                 outputs = model.generate(
                     inputs.input_ids, 
                     max_length=inputs.input_ids.shape[1] + args.max_length,
-                    pad_token_id=tokenizer.eos_token_id
+                    pad_token_id=tokenizer.eos_token_id,
+                    do_sample=True,
+                    top_k=50,
+                    top_p=0.95,
+                    repetition_penalty=1.2
                 )
             
             generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)

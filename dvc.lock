@@ -57,8 +57,8 @@ stages:
       size: 117
     - path: data/raw/knowledge_base.csv
       hash: md5
-      md5: 272103eea1663f3331a169c728c323f2
-      size: 569
+      md5: c7ee4c4fdf688c3cfd6aa8af9d86fcf8
+      size: 2924
     - path: models/model_v1
       hash: md5
       md5: f4dbb7dfb8f58d0db3c982e8bdb98252.dir
@@ -66,13 +66,13 @@ stages:
       nfiles: 8
     - path: scripts/rag_generate.py
       hash: md5
-      md5: 7b4a8fb00d75fc813644901375a50a92
-      size: 2967
+      md5: 0a82a31ddfa4199569736644dcfaf012
+      size: 3109
     params:
       params.yaml:
         generate.max_length: 50
     outs:
     - path: data/predictions.csv
       hash: md5
-      md5: 6ab6d100b6fb3246083460aba8d8f73e
-      size: 1365
+      md5: 99e23b990ff8ac84357aa956ccd00c6d
+      size: 1728
