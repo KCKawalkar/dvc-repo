@@ -1,24 +1,29 @@
 schema: '2.0'
 stages:
   preprocess:
-    cmd: python scripts/preprocess.py
+    cmd: python scripts/preprocess.py --input data/raw/prompts.csv --output 
+      data/processed.csv
     deps:
-    - path: data/raw
+    - path: data/raw/prompts.csv
       hash: md5
-      md5: 2950ac7f2ace7983696fc3978e1ad086.dir
+      md5: ccdc9c7b7bde610109b5eb93f171d227
       size: 117
-      nfiles: 1
     - path: scripts/preprocess.py
       hash: md5
-      md5: 1b4b483fede47eec440d3953b52f8380
-      size: 147
+      md5: e33db128cbce580150b3714b4fcaa4d3
+      size: 590
+    params:
+      params.yaml:
+        preprocess.input: data/raw/prompts.csv
+        preprocess.output: data/processed.csv
     outs:
     - path: data/processed.csv
       hash: md5
       md5: ccdc9c7b7bde610109b5eb93f171d227
       size: 117
   train:
-    cmd: python scripts/train.py
+    cmd: python scripts/train.py --data data/processed.csv --model_dir 
+      models/model_v1 --model_name distilgpt2 --epochs 3 --batch_size 8
     deps:
     - path: data/processed.csv
       hash: md5
@@ -26,11 +31,48 @@ stages:
       size: 117
     - path: scripts/train.py
       hash: md5
-      md5: 64f488bbdb2b090457ba184b545154ea
-      size: 668
+      md5: e2a2d9a841e70d88a73b4b900ffd60f2
+      size: 1442
+    params:
+      params.yaml:
+        train.batch_size: 8
+        train.data: data/processed.csv
+        train.epochs: 3
+        train.model_dir: models/model_v1
+        train.model_name: distilgpt2
     outs:
     - path: models/model_v1
       hash: md5
       md5: f4dbb7dfb8f58d0db3c982e8bdb98252.dir
       size: 332471746
       nfiles: 8
+  generate:
+    cmd: python scripts/rag_generate.py --model_dir models/model_v1 --data 
+      data/processed.csv --knowledge_base data/raw/knowledge_base.csv --output 
+      data/predictions.csv --max_length 50
+    deps:
+    - path: data/processed.csv
+      hash: md5
+      md5: ccdc9c7b7bde610109b5eb93f171d227
+      size: 117
+    - path: data/raw/knowledge_base.csv
+      hash: md5
+      md5: 272103eea1663f3331a169c728c323f2
+      size: 569
+    - path: models/model_v1
+      hash: md5
+      md5: f4dbb7dfb8f58d0db3c982e8bdb98252.dir
+      size: 332471746
+      nfiles: 8
+    - path: scripts/rag_generate.py
+      hash: md5
+      md5: 7b4a8fb00d75fc813644901375a50a92
+      size: 2967
+    params:
+      params.yaml:
+        generate.max_length: 50
+    outs:
+    - path: data/predictions.csv
+      hash: md5
+      md5: 6ab6d100b6fb3246083460aba8d8f73e
+      size: 1365
